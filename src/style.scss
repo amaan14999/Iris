@@ -1,0 +1,348 @@
+@mixin mobile {
+  @media screen and (max-width: 480px) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+@mixin laptop {
+  @media screen and (max-width: 1200px) {
+    @content;
+  }
+}
+
+.formContainer {
+  background-color: #a7bcff;
+  height: 100vh;
+  // Center the form in the middle of the page with flexbox
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  //feature of sass. We can nest the formWrapper class inside the formContainer class(children can be usen inside the parent)
+  .formWrapper {
+    //flex the formWrapper and set the main axis(flex-direction) to column with gapping between the two span elements(Logo and title), form.
+    background-color: white;
+    padding: 20px 60px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
+    //customise logo
+    .logo {
+      color: #5d5b8d;
+      font-weight: bold;
+      font-size: 24px;
+    }
+
+    .title {
+      color: #5d5b8d;
+      font-size: 12px;
+    }
+
+    //flex the form elements and set the main axis(flex-direction) to column with gapping between the elements
+    form {
+      display: flex;
+      flex-direction: column; //form elements will be stacked on top of each other(Choose column or column-reverse and your main axis will run from the top of the page to the bottom)
+      gap: 15px; //gap between the form elements
+
+      input {
+        padding: 15px;
+        border: none;
+        width: 250px;
+        // border-bottom: 1px solid #a7bcff;
+
+        //color of the placeholder text
+        &::placeholder {
+          color: rgb(175, 175, 175);
+        }
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #8da4f1;
+        font-size: 12px;
+        cursor: pointer;
+
+        img {
+          width: 32px;
+        }
+      }
+
+      button {
+        background-color: #7b96ec;
+        color: white;
+        padding: 10px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+    p {
+      color: #5d5b8d;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  }
+}
+
+.home {
+  background-color: #a7bcff;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .container {
+    border-radius: 10px;
+    width: 60%;
+    height: 80%;
+    display: flex;
+    overflow: hidden; //to prevent the sidebar from overflowing the container
+
+    //separating the sidebar and chat with siderbar taking 1/3 of the width and chat taking 2/3 of the width
+    .sidebar {
+      flex: 1;
+      background-color: #3e3c61;
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        background-color: #2f2d52;
+        height: 50px;
+        padding: 10px;
+        justify-content: space-between; //to push the logout button to the right(adds space between the elements)
+        color: #ddddf7;
+
+        .logo {
+          font-weight: bold;
+          @include tablet {
+            display: none;
+          }
+        }
+
+        .user {
+          display: flex;
+          gap: 10px;
+          cursor: pointer;
+
+          img {
+            color: #ddddf7;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            object-fit: cover; //to crop the image to fit the container
+          }
+
+          button {
+            background-color: #5d5b8d;
+            border: none;
+            color: #ddddf7;
+            font-size: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .search {
+        // border-bottom: 1px solid gray;
+
+        .searchform {
+          padding: 10px;
+
+          input {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: white;
+
+            &::placeholder {
+              color: lightgray;
+            }
+          }
+        }
+      }
+
+      .userChat {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #2f2d52;
+        }
+
+        img {
+          height: 50px;
+          width: 50px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        .userChatInfo {
+          span {
+            font-size: 18px;
+            font-weight: 500;
+          }
+          p {
+            font-size: 14px;
+            color: lightgray;
+          }
+        }
+      }
+    }
+    .chat {
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar:horizontal {
+        height: 0px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2f2d52;
+        border-radius: 20px;
+      }
+      flex: 2;
+
+      .chatInfo {
+        height: 50px;
+        background-color: #5d5b8d;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        color: white;
+        justify-content: space-between;
+
+        .chatIcons {
+          display: flex;
+          gap: 10px;
+          cursor: pointer;
+
+          img {
+            height: 22px;
+            width: 22px;
+          }
+        }
+      }
+      .messages {
+        background-color: #ddddf7;
+        padding: 10px;
+        height: calc(
+          100% - 160px
+        ); //size of the chatInfo and input container is 160px
+        overflow: scroll;
+
+        .message {
+          display: flex;
+          gap: 20px;
+
+          .messageInfo {
+            display: flex;
+            flex-direction: column;
+            color: gray;
+            font-weight: 300;
+            margin-bottom: 20px;
+            font-size: 10px;
+            img {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+          }
+
+          .messageContent {
+            max-width: 80%; //to prevent the message from overflowing the container and 80% of the container's width can be taken by a message
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            p {
+              background-color: white;
+              padding: 10px 20px;
+              border-radius: 0px 10px 10px 10px;
+              max-width: max-content;
+              // margin-top: 5px;
+            }
+
+            img {
+              width: 50%;
+            }
+          }
+          &.owner //writing this will apply the styles to the message that has to the class message owner. It is used to join class names
+          {
+            flex-direction: row-reverse; //to send message from owner side
+
+            .messageContent {
+              align-items: flex-end;
+            }
+
+            p {
+              background-color: #8da4f1;
+              color: white;
+              border-radius: 10px 0px 10px 10px;
+            }
+          }
+        }
+      }
+
+      .input {
+        height: 50px;
+        background-color: white;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        input {
+          width: 100%;
+          border: none;
+          outline: none;
+          color: #2f2d52;
+          font-size: 18px;
+
+          &::placeholder {
+            color: lightgray;
+          }
+        }
+
+        .send {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+
+          img {
+            height: 22px;
+            width: 22px;
+          }
+
+          label {
+            cursor: pointer;
+          }
+
+          button {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 15px;
+            color: white;
+            font-weight: 500;
+            background-color: #8da4f1;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
